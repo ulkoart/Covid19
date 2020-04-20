@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="98a-s7-h6v">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -50,9 +51,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aGn-mK-yot">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aGn-mK-yot">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="zaj-Zp-eUG">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
@@ -60,23 +60,183 @@
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="aGn-mK-yot" firstAttribute="top" secondItem="5W1-LL-T8N" secondAttribute="top" id="GFM-sl-TUR"/>
+                            <constraint firstItem="aGn-mK-yot" firstAttribute="bottom" secondItem="5W1-LL-T8N" secondAttribute="bottom" id="NYu-Sl-9R0"/>
+                            <constraint firstItem="aGn-mK-yot" firstAttribute="trailing" secondItem="5W1-LL-T8N" secondAttribute="trailing" id="cTx-y3-eXm"/>
+                            <constraint firstItem="aGn-mK-yot" firstAttribute="leading" secondItem="5W1-LL-T8N" secondAttribute="leading" id="vyF-bX-sVb"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5W1-LL-T8N"/>
                     </view>
                     <navigationItem key="navigationItem" title="Covid-19 Map" id="gI8-ih-Pym"/>
                     <connections>
                         <outlet property="activityIndicator" destination="zaj-Zp-eUG" id="gon-0y-3jL"/>
                         <outlet property="mapView" destination="aGn-mK-yot" id="dAF-cU-3yu"/>
+                        <segue destination="hFD-iH-WPo" kind="showDetail" identifier="showCountryDetail" id="SiB-C5-hUX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aFQ-GZ-8j4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1280.8" y="-421.43928035982015"/>
         </scene>
-        <!--Item-->
+        <!--DetailVC-->
+        <scene sceneID="bYg-ID-FdN">
+            <objects>
+                <viewController storyboardIdentifier="сountryDetail" id="hFD-iH-WPo" customClass="DetailVC" customModule="Covid19" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RMZ-dF-LkP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Xm0-lv-czv">
+                                <rect key="frame" x="0.0" y="44" width="375" height="274.5"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Country" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLR-F9-GfE">
+                                <rect key="frame" x="139" y="308.5" width="97" height="45"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4oT-ra-eey">
+                                <rect key="frame" x="60" y="373.5" width="255" height="164.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="eV5-D2-cd3">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="26.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Confirmed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afv-8w-TLO">
+                                                <rect key="frame" x="0.0" y="0.0" width="152.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dte-9K-3s5">
+                                                <rect key="frame" x="181.5" y="0.0" width="73.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="afv-8w-TLO" firstAttribute="baseline" secondItem="Dte-9K-3s5" secondAttribute="firstBaseline" id="d9Z-Tl-F8y"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="89" translatesAutoresizingMaskIntoConstraints="NO" id="rFG-ad-upa">
+                                        <rect key="frame" x="0.0" y="34.5" width="255" height="26.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Deaths:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PtG-rG-pdy">
+                                                <rect key="frame" x="0.0" y="0.0" width="153.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aB-Ut-lvG">
+                                                <rect key="frame" x="242.5" y="0.0" width="12.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="PtG-rG-pdy" firstAttribute="baseline" secondItem="9aB-Ut-lvG" secondAttribute="firstBaseline" id="9Zg-hV-zxJ"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="52" translatesAutoresizingMaskIntoConstraints="NO" id="0de-GA-Vpo">
+                                        <rect key="frame" x="0.0" y="69" width="255" height="26.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Recovered:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtX-Zm-C2R">
+                                                <rect key="frame" x="0.0" y="0.0" width="190.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cq6-GD-doh">
+                                                <rect key="frame" x="242.5" y="0.0" width="12.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="wtX-Zm-C2R" firstAttribute="baseline" secondItem="cq6-GD-doh" secondAttribute="firstBaseline" id="lJW-Ss-OcA"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="98" translatesAutoresizingMaskIntoConstraints="NO" id="Web-ml-6CH">
+                                        <rect key="frame" x="0.0" y="103.5" width="255" height="26.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Active:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XF-k2-SJV">
+                                                <rect key="frame" x="0.0" y="0.0" width="144.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="two-fP-gbS">
+                                                <rect key="frame" x="242.5" y="0.0" width="12.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="1XF-k2-SJV" firstAttribute="baseline" secondItem="two-fP-gbS" secondAttribute="firstBaseline" id="Aaz-RA-OYK"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="PYL-53-0tZ">
+                                        <rect key="frame" x="0.0" y="138" width="255" height="26.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Mortality rate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4TF-r6-Q2J">
+                                                <rect key="frame" x="0.0" y="0.0" width="213.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpA-qM-cB5">
+                                                <rect key="frame" x="242.5" y="0.0" width="12.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="4TF-r6-Q2J" firstAttribute="baseline" secondItem="xpA-qM-cB5" secondAttribute="firstBaseline" id="4q9-1t-sHO"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Xm0-lv-czv" firstAttribute="bottom" secondItem="TLR-F9-GfE" secondAttribute="top" constant="10" id="6Vo-jW-3JD"/>
+                            <constraint firstItem="3N5-c5-6KD" firstAttribute="bottom" secondItem="4oT-ra-eey" secondAttribute="bottom" constant="80" id="7XK-px-EBT"/>
+                            <constraint firstItem="TLR-F9-GfE" firstAttribute="centerY" secondItem="3N5-c5-6KD" secondAttribute="centerY" id="NXE-g2-CZW"/>
+                            <constraint firstItem="Xm0-lv-czv" firstAttribute="top" secondItem="3N5-c5-6KD" secondAttribute="top" id="PQZ-pE-WWl"/>
+                            <constraint firstItem="4oT-ra-eey" firstAttribute="top" secondItem="TLR-F9-GfE" secondAttribute="bottom" constant="20" id="RRT-0I-t1x"/>
+                            <constraint firstItem="Xm0-lv-czv" firstAttribute="leading" secondItem="3N5-c5-6KD" secondAttribute="leading" id="cvG-r9-mU1"/>
+                            <constraint firstItem="TLR-F9-GfE" firstAttribute="centerX" secondItem="3N5-c5-6KD" secondAttribute="centerX" id="dvq-q8-qu0"/>
+                            <constraint firstItem="4oT-ra-eey" firstAttribute="leading" secondItem="3N5-c5-6KD" secondAttribute="leading" constant="60" id="kWG-wG-4gh"/>
+                            <constraint firstItem="3N5-c5-6KD" firstAttribute="trailing" secondItem="4oT-ra-eey" secondAttribute="trailing" constant="60" id="nTm-jl-2UY"/>
+                            <constraint firstItem="Xm0-lv-czv" firstAttribute="trailing" secondItem="3N5-c5-6KD" secondAttribute="trailing" id="tih-sE-ks5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3N5-c5-6KD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OfF-qW-hew"/>
+                    <connections>
+                        <outlet property="activeCountLabel" destination="two-fP-gbS" id="0EA-Tk-jAC"/>
+                        <outlet property="confirmedCountLabel" destination="Dte-9K-3s5" id="vVg-Tw-89C"/>
+                        <outlet property="countryNameLabel" destination="TLR-F9-GfE" id="yc1-fL-M7e"/>
+                        <outlet property="deathsCountLabel" destination="9aB-Ut-lvG" id="Qjx-Bb-2QY"/>
+                        <outlet property="mapView" destination="Xm0-lv-czv" id="cam-zn-DiY"/>
+                        <outlet property="mortalityRateCountLabel" destination="xpA-qM-cB5" id="Hyj-Sa-1eQ"/>
+                        <outlet property="recoveredCountLabel" destination="cq6-GD-doh" id="Wob-Ob-CAI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rjg-xJ-Vt8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220" y="-241.52923538230885"/>
+        </scene>
+        <!--Table-->
         <scene sceneID="Aeb-WX-FHE">
             <objects>
                 <navigationController id="lCh-wQ-aCn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="oua-Ud-aLr"/>
+                    <tabBarItem key="tabBarItem" title="Table" image="list.dash" catalog="system" id="oua-Ud-aLr"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QlB-qT-pT5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -89,16 +249,16 @@
             </objects>
             <point key="canvasLocation" x="460" y="289"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Countries-->
         <scene sceneID="Cjl-t8-lqp">
             <objects>
-                <tableViewController id="vi0-8z-yT2" sceneMemberID="viewController">
+                <tableViewController id="vi0-8z-yT2" customClass="CovidTableVC" customModule="Covid19" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="M0z-8a-56n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iZy-m2-Gbn">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="countryCell" id="iZy-m2-Gbn">
                                 <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iZy-m2-Gbn" id="CsQ-PJ-q1H">
@@ -112,7 +272,10 @@
                             <outlet property="delegate" destination="vi0-8z-yT2" id="FdR-pA-Pfc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="CTL-Ir-tNr"/>
+                    <navigationItem key="navigationItem" title="Countries" id="CTL-Ir-tNr"/>
+                    <connections>
+                        <segue destination="hFD-iH-WPo" kind="show" identifier="showCountryDetail" id="Of8-4I-a4T"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8vw-hF-xCU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -120,6 +283,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list.dash" catalog="system" width="64" height="42"/>
         <image name="map" catalog="system" width="64" height="56"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Of8-4I-a4T"/>
+    </inferredMetricsTieBreakers>
 </document>

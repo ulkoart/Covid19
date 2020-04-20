@@ -17,6 +17,9 @@
 		CEC1B5E4244C692200BCE768 /* CountryDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1B5E3244C692200BCE768 /* CountryDataResponse.swift */; };
 		CEC1B5E9244C7B5A00BCE768 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1B5E8244C7B5A00BCE768 /* DataController.swift */; };
 		CEC1B5EC244C7D7000BCE768 /* Covid19.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEC1B5EA244C7D7000BCE768 /* Covid19.xcdatamodeld */; };
+		CEC1B5EE244D7A9B00BCE768 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1B5ED244D7A9B00BCE768 /* DetailVC.swift */; };
+		CEC1B5F0244D8C1500BCE768 /* Covid19PointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1B5EF244D8C1500BCE768 /* Covid19PointAnnotation.swift */; };
+		CEC1B5F2244DB36B00BCE768 /* CovidTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1B5F1244DB36B00BCE768 /* CovidTableVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		CEC1B5E3244C692200BCE768 /* CountryDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDataResponse.swift; sourceTree = "<group>"; };
 		CEC1B5E8244C7B5A00BCE768 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CEC1B5EB244C7D7000BCE768 /* Covid19.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Covid19.xcdatamodel; sourceTree = "<group>"; };
+		CEC1B5ED244D7A9B00BCE768 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		CEC1B5EF244D8C1500BCE768 /* Covid19PointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Covid19PointAnnotation.swift; sourceTree = "<group>"; };
+		CEC1B5F1244DB36B00BCE768 /* CovidTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidTableVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				CE55300C244C521E00EDC312 /* CovidMapVC.swift */,
+				CEC1B5ED244D7A9B00BCE768 /* DetailVC.swift */,
+				CEC1B5F1244DB36B00BCE768 /* CovidTableVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -99,6 +107,7 @@
 				CEC1B5E3244C692200BCE768 /* CountryDataResponse.swift */,
 				CEC1B5E8244C7B5A00BCE768 /* DataController.swift */,
 				CEC1B5EA244C7D7000BCE768 /* Covid19.xcdatamodeld */,
+				CEC1B5EF244D8C1500BCE768 /* Covid19PointAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -179,6 +188,9 @@
 				CE55300D244C521E00EDC312 /* CovidMapVC.swift in Sources */,
 				CEC1B5E4244C692200BCE768 /* CountryDataResponse.swift in Sources */,
 				CEC1B5E2244C62D400BCE768 /* Country.swift in Sources */,
+				CEC1B5F0244D8C1500BCE768 /* Covid19PointAnnotation.swift in Sources */,
+				CEC1B5EE244D7A9B00BCE768 /* DetailVC.swift in Sources */,
+				CEC1B5F2244DB36B00BCE768 /* CovidTableVC.swift in Sources */,
 				CE553009244C521E00EDC312 /* AppDelegate.swift in Sources */,
 				CEC1B5E0244C61F300BCE768 /* Covid19Client.swift in Sources */,
 			);

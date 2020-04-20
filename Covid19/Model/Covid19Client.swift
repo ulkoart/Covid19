@@ -38,54 +38,47 @@ extension Covid19Client {
                 completionHandler([], error)
                 return
             }
-            
-            DispatchQueue.main.async {
+
+            DispatchQueue.global(qos: .userInitiated).async {
                 countries.forEach { (country) in
-                    getCountryData(slug: country.slug) { (countryData, error) in
+                    Covid19Client.getCountryData(slug: country.slug) { (countryData, error) in
+                                                
                         guard error == nil else {
                             return
                         }
-                        
+
                         if let countryData = countryData {
                             let fetchRequest:NSFetchRequest<CountryData> = CountryData.fetchRequest()
                             let predicate = NSPredicate(format: "slug == %@", country.slug)
                             fetchRequest.predicate = predicate
                             
-                            if let result = try? dataController.viewContext.fetch(fetchRequest) {
-                                var cdToSave: CountryData
-                                if (result.count > 0) {
-                                    cdToSave = result[0] as CountryData
-                                } else {
-                                    cdToSave = CountryData(context: dataController.viewContext)
+                            if let result = try? dataController.backgroundContext.fetch(fetchRequest) {
+                                                
+                                dataController.backgroundContext.perform {
+                                    var cdToSave: CountryData
+                                    if (result.count > 0) {
+                                        cdToSave = result[0] as CountryData
+                                    } else {
+                                        cdToSave = CountryData(context: dataController.backgroundContext)
+                                    }
+                                    cdToSave.name = country.country
+                                    cdToSave.lat = Double(countryData.lat)!
+                                    cdToSave.lon = Double(countryData.lon)!
+                                    cdToSave.confirmed = countryData.confirmed
+                                    cdToSave.deaths = countryData.deaths
+                                    cdToSave.recovered = countryData.recovered
+                                    cdToSave.active = countryData.active
+                                    cdToSave.slug = country.slug
+                                    try? dataController.backgroundContext.save()
                                 }
-                                
-                                cdToSave.name = country.country
-                                cdToSave.lat = Double(countryData.lat)!
-                                cdToSave.lon = Double(countryData.lon)!
-                                cdToSave.confirmed = countryData.confirmed
-                                cdToSave.deaths = countryData.deaths
-                                cdToSave.recovered = countryData.recovered
-                                cdToSave.active = countryData.active
-                                cdToSave.slug = country.slug
-                                
-                                try? dataController.viewContext.save()
-                                
-//                                DispatchQueue.main.async {
-//                                   try! dataController.backgroundContext.save()
-//                                }
                             }
-                            
-                            
                         }
                     }
                 }
             }
-            
-            
             completionHandler(countries, nil)
+            return
         }
-        
-        
     }
     
     class func getCountryData(slug: String, completionHandler: @escaping (CountryDataResponse?, Error?) -> Void) {
@@ -121,14 +114,21 @@ extension Covid19Client {
                 }
                 return
             }
-            
             let decoder = JSONDecoder()
-            let responseObject = try! decoder.decode(ResponseType.self, from: data)
             
-            DispatchQueue.main.async {
-                completionHandler(responseObject, nil)
+            do {
+                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                
+                DispatchQueue.main.async {
+                    completionHandler(responseObject, nil)
+                }
+                
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil, error)
+                }
             }
-            
+
         }
         task.resume()
         return task

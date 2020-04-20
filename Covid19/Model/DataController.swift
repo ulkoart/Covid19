@@ -43,4 +43,6 @@ class DataController {
             completion?()
         }
     }
+    
+    static let shared = DataController(modelName: "Covid19")
 }
