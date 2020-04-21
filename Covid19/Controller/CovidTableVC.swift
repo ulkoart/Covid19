@@ -39,14 +39,18 @@ class CovidTableVC: UITableViewController {
         
     }
     
-    
     @objc func refreshButtonPressed() {
         loadData()
-        
     }
     
     func loadData() {
         Covid19Client.loadCountries(dataController: DataController.shared) { (countries, error) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Oops :-(", message: error?.localizedDescription ?? "Network error.")
+                    return
+                }
+            }
             return
         }
     }
@@ -119,5 +123,15 @@ extension CovidTableVC:NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+    }
+}
+
+extension CovidTableVC {
+    func showAlert(title: String, message: String) -> Void {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true)
     }
 }

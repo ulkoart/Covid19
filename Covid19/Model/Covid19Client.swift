@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class Covid19Client {
     enum Endpoints {
@@ -44,6 +45,7 @@ extension Covid19Client {
                     Covid19Client.getCountryData(slug: country.slug) { (countryData, error) in
                                                 
                         guard error == nil else {
+                            completionHandler([], error)
                             return
                         }
 

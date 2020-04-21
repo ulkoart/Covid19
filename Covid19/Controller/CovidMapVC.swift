@@ -44,13 +44,11 @@ class CovidMapVC: UIViewController {
             target: self,
             action: #selector(refreshButtonPressed)
         )
-  
     }
     
     
     @objc func refreshButtonPressed() {
         loadData()
-        
     }
     
     func showCountries() {
@@ -62,6 +60,14 @@ class CovidMapVC: UIViewController {
     func loadData() {
         activityIndicator.isHidden = false
         Covid19Client.loadCountries(dataController: DataController.shared) { (countries, error) in
+            
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Oops :-(", message: error?.localizedDescription ?? "Network error.")
+                    return
+                }
+            }
+            
             self.activityIndicator.isHidden = true
             return
         }
@@ -141,5 +147,16 @@ extension CovidMapVC {
             let detail = segue.destination as! DetailVC
             detail.slugSelectedPing = slugSelectedPing
         }
+    }
+}
+
+
+extension CovidMapVC {
+    func showAlert(title: String, message: String) -> Void {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true)
     }
 }

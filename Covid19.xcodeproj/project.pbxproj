@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE380583244EC860000584DF /* screenshot_4.png in Resources */ = {isa = PBXBuildFile; fileRef = CE38057F244EC860000584DF /* screenshot_4.png */; };
+		CE380584244EC860000584DF /* screenshot_2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE380580244EC860000584DF /* screenshot_2.png */; };
+		CE380585244EC860000584DF /* screenshot_1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE380581244EC860000584DF /* screenshot_1.png */; };
+		CE380586244EC860000584DF /* screenshot_3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE380582244EC860000584DF /* screenshot_3.png */; };
 		CE553009244C521E00EDC312 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE553008244C521E00EDC312 /* AppDelegate.swift */; };
 		CE55300D244C521E00EDC312 /* CovidMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55300C244C521E00EDC312 /* CovidMapVC.swift */; };
 		CE553010244C521E00EDC312 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE55300E244C521E00EDC312 /* Main.storyboard */; };
@@ -24,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE38057F244EC860000584DF /* screenshot_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot_4.png; sourceTree = "<group>"; };
+		CE380580244EC860000584DF /* screenshot_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot_2.png; sourceTree = "<group>"; };
+		CE380581244EC860000584DF /* screenshot_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot_1.png; sourceTree = "<group>"; };
+		CE380582244EC860000584DF /* screenshot_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot_3.png; sourceTree = "<group>"; };
 		CE553005244C521E00EDC312 /* Covid19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Covid19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE553008244C521E00EDC312 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE55300C244C521E00EDC312 /* CovidMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidMapVC.swift; sourceTree = "<group>"; };
@@ -53,9 +61,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE380576244EC802000584DF /* screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				CE380581244EC860000584DF /* screenshot_1.png */,
+				CE380580244EC860000584DF /* screenshot_2.png */,
+				CE380582244EC860000584DF /* screenshot_3.png */,
+				CE38057F244EC860000584DF /* screenshot_4.png */,
+			);
+			path = screenshots;
+			sourceTree = "<group>";
+		};
 		CE552FFC244C521E00EDC312 = {
 			isa = PBXGroup;
 			children = (
+				CE380576244EC802000584DF /* screenshots */,
 				CE553007244C521E00EDC312 /* Covid19 */,
 				CE553006244C521E00EDC312 /* Products */,
 				CEC1B5F3244DC6B200BCE768 /* README.md */,
@@ -173,9 +193,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE380584244EC860000584DF /* screenshot_2.png in Resources */,
 				CE553015244C522000EDC312 /* LaunchScreen.storyboard in Resources */,
 				CE553012244C522000EDC312 /* Assets.xcassets in Resources */,
+				CE380586244EC860000584DF /* screenshot_3.png in Resources */,
 				CEC1B5F4244DC6B200BCE768 /* README.md in Resources */,
+				CE380585244EC860000584DF /* screenshot_1.png in Resources */,
+				CE380583244EC860000584DF /* screenshot_4.png in Resources */,
 				CE553010244C521E00EDC312 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,7 +374,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ulkoart.Covid19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -369,7 +393,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ulkoart.Covid19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
