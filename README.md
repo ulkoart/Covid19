@@ -16,6 +16,20 @@ By touching the pin, information about the country appears. Clicking on a countr
 
 The countries are loaded and displayed the first time the application is launched, as data is received, pins will appear in the future, the old ones will already be marked and there will simply be data updates
 
+### Screenshots
+
+![](https://raw.githubusercontent.com/ulkoart/Covid19/master/screenshots/screenshot_1.png)
+![](https://raw.githubusercontent.com/ulkoart/Covid19/master/screenshots/screenshot_2.png)
+![](https://raw.githubusercontent.com/ulkoart/Covid19/master/screenshots/screenshot_3.png)
+![](https://raw.githubusercontent.com/ulkoart/Covid19/master/screenshots/screenshot_4.png)
+
+
+### Requirements 
+
+- iOS 10.0+
+- Xcode 10.2+
+- Swift 4.2+
+
 ### Сheck list
 
 ✅ The app contains multiple pages of interface in a navigation controller or tab controller, or a single view controller with a view that shows and hides significant new content.
