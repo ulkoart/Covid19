@@ -13,14 +13,14 @@ import UIKit
 class Covid19Client {
     enum Endpoints {
         static let baseUrl = "https://api.covid19api.com/"
-        
+
         case countries
         case countryData(String)
-        
+
         var url: URL {
             return URL(string: self.stringValue)!
         }
-        
+
         var stringValue: String {
             switch self {
             case .countries:
@@ -33,8 +33,8 @@ class Covid19Client {
 }
 
 extension Covid19Client {
-    class func loadCountries(dataController:DataController, completionHandler: @escaping ([Country], Error?) -> Void) {
-        let _ = taskGETRequest(url: Endpoints.countries.url, responseType: [Country].self) { countries, error in
+    class func loadCountries(dataController: DataController, completionHandler: @escaping ([Country], Error?) -> Void) {
+        _ = taskGETRequest(url: Endpoints.countries.url, responseType: [Country].self) { countries, error in
             guard let countries = countries else {
                 completionHandler([], error)
                 return
@@ -43,22 +43,22 @@ extension Covid19Client {
             DispatchQueue.global(qos: .userInitiated).async {
                 countries.forEach { (country) in
                     Covid19Client.getCountryData(slug: country.slug) { (countryData, error) in
-                                                
+
                         guard error == nil else {
                             completionHandler([], error)
                             return
                         }
 
                         if let countryData = countryData {
-                            let fetchRequest:NSFetchRequest<CountryData> = CountryData.fetchRequest()
+                            let fetchRequest: NSFetchRequest<CountryData> = CountryData.fetchRequest()
                             let predicate = NSPredicate(format: "slug == %@", country.slug)
                             fetchRequest.predicate = predicate
-                            
+
                             if let result = try? dataController.backgroundContext.fetch(fetchRequest) {
-                                                
+
                                 dataController.backgroundContext.perform {
                                     var cdToSave: CountryData
-                                    if (result.count > 0) {
+                                    if result.isEmpty {
                                         cdToSave = result[0] as CountryData
                                     } else {
                                         cdToSave = CountryData(context: dataController.backgroundContext)
@@ -82,15 +82,15 @@ extension Covid19Client {
             return
         }
     }
-    
+
     class func getCountryData(slug: String, completionHandler: @escaping (CountryDataResponse?, Error?) -> Void) {
-        let _ = taskGETRequest(url: Endpoints.countryData(slug).url, responseType: [CountryDataResponse].self) { data, error in
+        _ = taskGETRequest(url: Endpoints.countryData(slug).url, responseType: [CountryDataResponse].self) { data, error in
             guard let data = data else {
                 completionHandler(nil, error)
                 return
             }
-            
-            if data.count > 0 {
+
+            if data.isEmpty {
                 let countryData: CountryDataResponse = CountryDataResponse(
                     lat: data.last!.lat,
                     lon: data.last!.lon,
@@ -109,7 +109,7 @@ extension Covid19Client {
 
 extension Covid19Client {
     class func taskGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completionHandler: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 DispatchQueue.main.async {
                     completionHandler(nil, error)
@@ -117,14 +117,14 @@ extension Covid19Client {
                 return
             }
             let decoder = JSONDecoder()
-            
+
             do {
                 let responseObject = try decoder.decode(ResponseType.self, from: data)
-                
+
                 DispatchQueue.main.async {
                     completionHandler(responseObject, nil)
                 }
-                
+
             } catch {
                 DispatchQueue.main.async {
                     completionHandler(nil, error)

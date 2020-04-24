@@ -10,5 +10,5 @@ import Foundation
 import MapKit
 
 class Covid19PointAnnotation: MKPointAnnotation {
-    var slug:String!
+    var slug: String!
 }

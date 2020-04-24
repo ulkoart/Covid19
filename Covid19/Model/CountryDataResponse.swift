@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct CountryDataResponse: Codable {
     let lat: String
     let lon: String
@@ -16,7 +15,7 @@ struct CountryDataResponse: Codable {
     let deaths: Int32
     let recovered: Int32
     let active: Int32
-    
+
     enum CodingKeys: String, CodingKey {
         case lat = "Lat"
         case lon = "Lon"
@@ -26,5 +25,5 @@ struct CountryDataResponse: Codable {
         case active = "Active"
 
     }
-    
+
 }

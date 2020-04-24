@@ -12,11 +12,11 @@ struct Country: Codable {
     let country: String
     let slug: String
     let ISO2: String
-    
+
     enum CodingKeys: String, CodingKey {
         case country = "Country"
         case slug = "Slug"
         case ISO2
     }
-    
+
 }

@@ -11,18 +11,18 @@ import MapKit
 import CoreData
 
 class CovidMapVC: UIViewController {
-    
+
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    var fetchedResultsController:NSFetchedResultsController<CountryData>!
+
+    var fetchedResultsController: NSFetchedResultsController<CountryData>!
     var slugSelectedPing: String!
-    
+
     fileprivate func setupFetchedResultsController() {
-        let fetchRequest:NSFetchRequest<CountryData> = CountryData.fetchRequest()
+        let fetchRequest: NSFetchRequest<CountryData> = CountryData.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "slug", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
+
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         do {
@@ -31,48 +31,47 @@ class CovidMapVC: UIViewController {
             fatalError("The fetch could not be performed: \(error.localizedDescription)")
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         setupFetchedResultsController()
         showCountries()
         loadData()
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .refresh,
             target: self,
             action: #selector(refreshButtonPressed)
         )
     }
-    
-    
+
     @objc func refreshButtonPressed() {
         loadData()
     }
-    
+
     func showCountries() {
         fetchedResultsController.fetchedObjects?.forEach({ (cd ) in
             addCountryOnMap(cd)
         })
     }
-    
+
     func loadData() {
         activityIndicator.isHidden = false
-        Covid19Client.loadCountries(dataController: DataController.shared) { (countries, error) in
-            
+        Covid19Client.loadCountries(dataController: DataController.shared) { (_, error) in
+
             if error != nil {
                 DispatchQueue.main.async {
                     self.showAlert(title: "Oops :-(", message: error?.localizedDescription ?? "Network error.")
                     return
                 }
             }
-            
+
             self.activityIndicator.isHidden = true
             return
         }
     }
-    
+
     func addCountryOnMap(_ cd: CountryData) {
         let lat = CLLocationDegrees(cd.lat)
         let lon = CLLocationDegrees(cd.lon)
@@ -82,50 +81,45 @@ class CovidMapVC: UIViewController {
         annotation.slug = cd.slug
         mapView.addAnnotation(annotation)
     }
-    
-    
-}
 
+}
 
 extension CovidMapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
+
         let reuseId = "pin"
-        
+
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-        
+
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.pinTintColor = .red
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-        else {
+        } else {
             pinView!.annotation = annotation
         }
-        
+
         return pinView
     }
-    
+
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         performSegue(withIdentifier: "showCountryDetail", sender: (Any).self)
-        
 
     }
-    
+
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let annotation = view.annotation as? Covid19PointAnnotation
         slugSelectedPing = annotation?.slug
-        
-        
+
     }
 }
 
-extension CovidMapVC:NSFetchedResultsControllerDelegate {
+extension CovidMapVC: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
-            let cd = anObject as! CountryData
+            guard let cd = anObject as? CountryData else { return }
             addCountryOnMap(cd)
             break
         case .delete:
@@ -138,23 +132,22 @@ extension CovidMapVC:NSFetchedResultsControllerDelegate {
             fatalError()
         }
     }
-    
+
 }
 
 extension CovidMapVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showCountryDetail" {
-            let detail = segue.destination as! DetailVC
-            detail.slugSelectedPing = slugSelectedPing
+            let detail = segue.destination as? DetailVC
+            detail?.slugSelectedPing = slugSelectedPing
         }
     }
 }
 
-
 extension CovidMapVC {
-    func showAlert(title: String, message: String) -> Void {
+    func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true)
