@@ -42,7 +42,7 @@ extension Covid19Client {
 
             DispatchQueue.global(qos: .userInitiated).async {
                 countries.forEach { (country) in
-                    Covid19Client.getCountryData(slug: country.slug) { (countryData, error) in
+                    self.getCountryData(slug: country.slug) { (countryData, error) in
                                                 
                         guard error == nil else {
                             completionHandler([], error)
@@ -127,6 +127,8 @@ extension Covid19Client {
                 
             } catch {
                 DispatchQueue.main.async {
+                    let dataStr = String(decoding: data, as: UTF8.self)
+                    print(dataStr)
                     completionHandler(nil, error)
                 }
             }
